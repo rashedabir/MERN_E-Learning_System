@@ -11,3 +11,28 @@ a{
   text-decoration: none;
   color: black;
 }
+
+/*-----------------------------------dashboard---------------------------------*/
+
+.dashboard{
+  background-image: linear-gradient(120deg, #2980b9, #8e44ad);
+  height: 80vh;
+}
+
+.dashboard .home{
+  background-image: url('./asstes/home.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+}
+.home_content{
+  padding: 120px 50px;
+}
+.home_content .MuiTypography-h4{
+  color: white !important;
+}
+.home_content .MuiTypography-h6{
+  color: white !important;
+}

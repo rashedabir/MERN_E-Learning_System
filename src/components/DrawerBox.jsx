@@ -62,12 +62,10 @@ function DrawerBox({ open }) {
       <Divider />
       <List className={classes.drawerList}>
         {drawerItemList.map((item) => (
-          <Link to={item.path}>
-            <ListItem button>
+            <ListItem button component={Link} to={item.path}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.title} />
             </ListItem>
-          </Link>
         ))}
       </List>
       <Divider />
