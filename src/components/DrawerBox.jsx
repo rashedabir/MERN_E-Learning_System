@@ -12,7 +12,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { drawerItemList } from "../utils/drawerItemList";
 
-const drawerWidth = 200;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(9) + 1,
     [theme.breakpoints.up("sm")]: {
       width: theme.spacing(9) + 1,
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: 0,
     },
   },
   drawerList: {

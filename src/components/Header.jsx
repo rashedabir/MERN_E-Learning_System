@@ -26,6 +26,7 @@ import CourseList from "../screens/CourseList";
 import About from "../screens/About";
 import Login from "../screens/Login";
 import Registration from "../screens/Registration";
+import logo from "../asstes/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -180,8 +181,13 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap className={classes.heading}>
-              E-Learn
+            <Typography
+              component={Link}
+              to="/"
+              noWrap
+              className={classes.heading}
+            >
+              <img width="140px" src={logo} alt="logo" />
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
