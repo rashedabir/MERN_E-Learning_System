@@ -16,7 +16,7 @@ a{
 
 .dashboard{
   background-image: linear-gradient(120deg, #2980b9, #8e44ad);
-  height: 100%;
+  min-height: 95vh;
   position: relative;
 }
 
@@ -61,4 +61,31 @@ a{
 
 .custom-shape-divider-bottom-1626601161 .shape-fill {
   fill: #fafafa;
+}
+
+/*----------------------------------form------------------------------*/
+
+.form{
+  background-image: linear-gradient(120deg, #2980b9, #8e44ad);
+  padding: 50px 0;
+}
+.form .MuiTypography-h4{
+  padding: 60px 0;
+  font-weight: 600;
+}
+.form .MuiTypography-h6{
+  padding: 80px 0;
+  font-size: 17px;
+}
+.form_reg{
+  background-image: linear-gradient(120deg, #2980b9, #8e44ad);
+  padding: 35px 0;
+}
+.form_reg .MuiTypography-h4{
+  padding: 20px 0;
+  font-weight: 600;
+}
+.form_reg .MuiTypography-h6{
+  padding: 30px 0;
+  font-size: 17px;
 }
