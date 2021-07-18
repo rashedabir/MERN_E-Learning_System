@@ -12,6 +12,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import CountUp from "react-countup";
 import home from "../asstes/home.jpg";
+import CourseDashboard from "../components/CourseDashboard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,6 +117,7 @@ function Dashboard() {
         </svg>
       </div>
     </div>
+    <CourseDashboard />
     </>
   );
 }

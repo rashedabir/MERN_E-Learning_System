@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
   drawerList: {
     marginTop: "60px",
   },
+  footer: {
+    marginTop: "auto",
+  },
 }));
 
 function DrawerBox({ open }) {
@@ -65,13 +68,18 @@ function DrawerBox({ open }) {
       <Divider />
       <List className={classes.drawerList}>
         {drawerItemList.map((item) => (
-            <ListItem button component={Link} to={item.path}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.title} />
-            </ListItem>
+          <ListItem button component={Link} to={item.path}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.title} />
+          </ListItem>
         ))}
       </List>
-      <Divider />
+      <List className={classes.footer}>
+        <Divider />
+        <ListItem>
+          <ListItemText>©2021</ListItemText>
+        </ListItem>
+      </List>
     </Drawer>
   );
 }

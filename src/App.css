@@ -60,7 +60,14 @@ a{
 }
 
 .custom-shape-divider-bottom-1626601161 .shape-fill {
-  fill: #fafafa;
+  fill: #fff;
+}
+.course_dashboard{
+  background-color: #fff;
+}
+.course_dashboard .heading{
+  padding: 0 30px;
+  padding-bottom: 40px;
 }
 
 /*----------------------------------form------------------------------*/
