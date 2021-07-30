@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function CourseList() {
-    return (
-        <div>
-            course list
-        </div>
-    )
+  return <div>course list</div>;
 }
 
-export default CourseList
+export default CourseList;

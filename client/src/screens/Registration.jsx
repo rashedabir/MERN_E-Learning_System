@@ -90,7 +90,7 @@ function Registration() {
                   variant="contained"
                   color="primary"
                 >
-                  sign in
+                  sign up
                 </Button>
                 <br></br>
                 <Typography variant="h6">

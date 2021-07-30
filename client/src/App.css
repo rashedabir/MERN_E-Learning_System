@@ -1,47 +1,46 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-body{
-  font-family: 'Poppins', sans-serif;
+body {
+  font-family: "Poppins", sans-serif;
 }
 
-a{
+a {
   text-decoration: none;
   color: black;
 }
 
 /*-----------------------------------dashboard---------------------------------*/
 
-.dashboard{
+.dashboard {
   background-image: linear-gradient(120deg, #2980b9, #8e44ad);
   min-height: 95vh;
   position: relative;
 }
 
-.dashboard .home{
+.dashboard .home {
   position: relative;
   height: 50vh;
 }
-.dashboard .home img{
+.dashboard .home img {
   height: 100%;
   width: 100%;
   opacity: 0.7;
   object-fit: cover;
 }
-.home_content{
+.home_content {
   position: absolute;
   bottom: 35%;
   left: 5%;
 }
-.home_content .MuiTypography-h4{
+.home_content .MuiTypography-h4 {
   color: white !important;
 }
-.home_content .MuiTypography-h6{
+.home_content .MuiTypography-h6 {
   color: white !important;
 }
-
 
 .custom-shape-divider-bottom-1626601161 {
   position: absolute;
@@ -56,43 +55,42 @@ a{
   position: relative;
   display: block;
   width: calc(119% + 1.3px);
-  
 }
 
 .custom-shape-divider-bottom-1626601161 .shape-fill {
   fill: #fff;
 }
-.course_dashboard{
+.course_dashboard {
   background-color: #fff;
 }
-.course_dashboard .heading{
-  padding: 0 30px;
+.course_dashboard .heading {
+  padding: 10px 30px;
   padding-bottom: 40px;
 }
 
 /*----------------------------------form------------------------------*/
 
-.form{
+.form {
   background-image: linear-gradient(120deg, #2980b9, #8e44ad);
   padding: 50px 0;
 }
-.form .MuiTypography-h4{
+.form .MuiTypography-h4 {
   padding: 60px 0;
   font-weight: 600;
 }
-.form .MuiTypography-h6{
+.form .MuiTypography-h6 {
   padding: 80px 0;
   font-size: 17px;
 }
-.form_reg{
+.form_reg {
   background-image: linear-gradient(120deg, #2980b9, #8e44ad);
   padding: 35px 0;
 }
-.form_reg .MuiTypography-h4{
+.form_reg .MuiTypography-h4 {
   padding: 20px 0;
   font-weight: 600;
 }
-.form_reg .MuiTypography-h6{
+.form_reg .MuiTypography-h6 {
   padding: 30px 0;
   font-size: 17px;
 }

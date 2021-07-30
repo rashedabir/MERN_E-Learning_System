@@ -6,9 +6,11 @@ import {
   Tab,
   Tabs,
   Typography,
+  useTheme,
 } from "@material-ui/core";
 import React from "react";
 import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -17,8 +19,8 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`nav-tabpanel-${index}`}
-      aria-labelledby={`nav-tab-${index}`}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -38,67 +40,63 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `nav-tab-${index}`,
-    "aria-controls": `nav-tabpanel-${index}`,
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
-}
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    width: "100%",
   },
 }));
 
 function CourseTab() {
   const classes = useStyles();
+  const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
   return (
     <Container maxWidth="xl">
       <div className={classes.root}>
-        <AppBar position="static" color="inherit">
+        <AppBar position="static" color="default">
           <Tabs
-            variant="fullWidth"
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
-            aria-label="nav tabs example"
+            textColor="primary"
+            variant="fullWidth"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
           >
-            <LinkTab label="Graphic Design" href="/drafts" {...a11yProps(0)} />
-            <LinkTab label="Frontend Development" href="/trash" {...a11yProps(1)} />
-            <LinkTab label="Backend Development" href="/spam" {...a11yProps(2)} />
-            <LinkTab label="Full-Stack Development" href="/spam" {...a11yProps(3)} />
+            <Tab label="Frontend Develop" {...a11yProps(0)} />
+            <Tab label="backend develop" {...a11yProps(1)} />
+            <Tab label="fullstack develop" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
-          Page One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Page Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Page Three
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Page Four
-        </TabPanel>
+        <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
+        >
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            Item One
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            Item Two
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            Item Three
+          </TabPanel>
+        </SwipeableViews>
       </div>
     </Container>
   );
