@@ -59,6 +59,7 @@ function DrawerBox({ open }) {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
+
   return (
     <Drawer
       variant="permanent"

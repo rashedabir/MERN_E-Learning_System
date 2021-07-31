@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     width: "300px",
     height: "50px",
     backgroundImage: "linear-gradient(120deg, #2980b9, #8e44ad)",
+    marginTop: "10px",
   },
   option: {
     width: "300px",
@@ -36,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "15px",
     marginBottom: "10px",
     outline: "none",
-    border: "2px solid #ccc",
+    border: "none",
+    borderBottom: "2px solid #ccc",
+    marginTop: "8px",
   },
 }));
 
@@ -44,6 +47,7 @@ function Registration() {
   const classes = useStyles();
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
+
   return (
     <Container maxWidth="xl" className="form_reg">
       <Grid container className={classes.root} spacing={2}>
