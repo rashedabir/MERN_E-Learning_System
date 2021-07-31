@@ -8,7 +8,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import clsx from "clsx";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { drawerItemList } from "../utils/drawerItemList";
 
@@ -47,10 +47,18 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     marginTop: "auto",
   },
+  bgIcon: {
+    color: "crimson",
+  },
 }));
 
 function DrawerBox({ open }) {
   const classes = useStyles();
+  const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
   return (
     <Drawer
       variant="permanent"
@@ -68,8 +76,18 @@ function DrawerBox({ open }) {
       <Divider />
       <List className={classes.drawerList}>
         {drawerItemList.map((item) => (
-          <ListItem button component={Link} to={item.path}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItem
+            button
+            component={Link}
+            to={item.path}
+            selected={selectedIndex === item.id}
+            onClick={(event) => handleListItemClick(event, item.id)}
+          >
+            <ListItemIcon
+              className={selectedIndex === item.id && classes.bgIcon}
+            >
+              {item.icon}
+            </ListItemIcon>
             <ListItemText primary={item.title} />
           </ListItem>
         ))}

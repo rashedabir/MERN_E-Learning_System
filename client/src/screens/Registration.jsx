@@ -8,7 +8,8 @@ import {
   Button,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
+import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,10 +30,20 @@ const useStyles = makeStyles((theme) => ({
     height: "50px",
     backgroundImage: "linear-gradient(120deg, #2980b9, #8e44ad)",
   },
+  option: {
+    width: "300px",
+    height: "40px",
+    fontSize: "15px",
+    marginBottom: "10px",
+    outline: "none",
+    border: "2px solid #ccc",
+  },
 }));
 
 function Registration() {
   const classes = useStyles();
+  const [country, setCountry] = useState("");
+  const [region, setRegion] = useState("");
   return (
     <Container maxWidth="xl" className="form_reg">
       <Grid container className={classes.root} spacing={2}>
@@ -83,6 +94,21 @@ function Registration() {
                   id="standard-input"
                   label="Number"
                   type="number"
+                />
+                <br></br>
+                <CountryDropdown
+                  id="demo-simple-select"
+                  labelId="demo-simple-select-label"
+                  value={country}
+                  onChange={(val) => setCountry(val)}
+                  className={classes.option}
+                />
+                <br></br>
+                <RegionDropdown
+                  className={classes.option}
+                  country={country}
+                  value={region}
+                  onChange={(val) => setRegion(val)}
                 />
                 <br></br>
                 <Button
