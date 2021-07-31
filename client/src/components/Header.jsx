@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+    [theme.breakpoints.down("sm")]: {
+      marginRight: 20,
+    },
   },
   toolbar: {
     display: "flex",
