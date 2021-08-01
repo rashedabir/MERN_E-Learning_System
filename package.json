@@ -4,7 +4,7 @@
   "description": "A learning system based on formalized teaching but with the help of electronic resources is known as E-learning. E-learning can also be termed as a network-enabled transfer of skills and knowledge, and the delivery of education is made to a large number of recipients at the same or different times.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,18 @@
   "bugs": {
     "url": "https://github.com/rashedabir/Course_Hub_Learning_Site/issues"
   },
-  "homepage": "https://github.com/rashedabir/Course_Hub_Learning_Site#readme"
+  "homepage": "https://github.com/rashedabir/Course_Hub_Learning_Site#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.26.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.5",
+    "nodemon": "^2.0.12",
+    "path": "^0.12.7"
+  }
 }
