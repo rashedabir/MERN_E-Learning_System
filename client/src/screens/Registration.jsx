@@ -10,6 +10,8 @@ import {
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +49,33 @@ function Registration() {
   const classes = useStyles();
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
+  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("/user/register", {
+        userName: userName,
+        name: name,
+        email: email,
+        password: password,
+        rePassword: rePassword,
+        number: number,
+        country: country,
+        region: region,
+      });
+      localStorage.setItem("firstLogin", true);
+      window.location.href = "/";
+      toast.success("Registration Complete");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
 
   return (
     <Container maxWidth="xl" className="form_reg">
@@ -61,6 +90,9 @@ function Registration() {
                   id="standard-input"
                   label="Username"
                   type="text"
+                  onChange={(e) => {
+                    setUserName(e.target.value);
+                  }}
                 />
                 <br></br>
                 <TextField
@@ -69,6 +101,9 @@ function Registration() {
                   label="Password"
                   type="password"
                   autoComplete="current-password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
                 <br></br>
                 <TextField
@@ -77,6 +112,9 @@ function Registration() {
                   label="Confirm Password"
                   type="password"
                   autoComplete="current-password"
+                  onChange={(e) => {
+                    setRePassword(e.target.value);
+                  }}
                 />
                 <br></br>
                 <TextField
@@ -84,6 +122,9 @@ function Registration() {
                   id="standard-input"
                   label="Name"
                   type="text"
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                 />
                 <br></br>
                 <TextField
@@ -91,6 +132,9 @@ function Registration() {
                   id="standard-input"
                   label="Email"
                   type="email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
                 <br></br>
                 <TextField
@@ -98,6 +142,9 @@ function Registration() {
                   id="standard-input"
                   label="Number"
                   type="number"
+                  onChange={(e) => {
+                    setNumber(e.target.value);
+                  }}
                 />
                 <br></br>
                 <CountryDropdown
@@ -119,6 +166,7 @@ function Registration() {
                   className={classes.button}
                   variant="contained"
                   color="primary"
+                  onClick={handleSubmit}
                 >
                   sign up
                 </Button>

@@ -8,7 +8,9 @@ import {
   Button,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +34,25 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const classes = useStyles();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("/user/login", {
+        userName: userName,
+        password: password,
+      });
+      localStorage.setItem("firstLogin", true);
+
+      window.location.href = "/";
+      toast.success("Wellcome");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
   return (
     <Container maxWidth="xl" className="form">
       <Grid container className={classes.root} spacing={2}>
@@ -45,6 +66,9 @@ function Login() {
                   id="standard-input"
                   label="Username"
                   type="text"
+                  onChange={(e) => {
+                    setUserName(e.target.value);
+                  }}
                 />
                 <br></br>
                 <br></br>
@@ -54,6 +78,9 @@ function Login() {
                   label="Password"
                   type="password"
                   autoComplete="current-password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
                 <br></br>
                 <br></br>
@@ -61,6 +88,7 @@ function Login() {
                   className={classes.button}
                   variant="contained"
                   color="primary"
+                  onClick={handleSubmit}
                 >
                   sign in
                 </Button>

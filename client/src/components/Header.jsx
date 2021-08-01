@@ -27,6 +27,11 @@ import About from "../screens/About";
 import Login from "../screens/Login";
 import Registration from "../screens/Registration";
 import logo from "../asstes/logo.png";
+import { useContext } from "react";
+import { GlobalState } from "../context/GlobalState";
+import axios from "axios";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -135,6 +140,9 @@ function Header() {
   const [open, setOpen] = useState(false);
   const [mobileMenuAnchorEl, setMobileMenuAchorEl] = useState(null);
   const isMobileMenuOpen = Boolean(mobileMenuAnchorEl);
+  const state = useContext(GlobalState);
+  const [isLogged, setIsLogged] = state.userAPI.isLogged;
+  const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -148,6 +156,15 @@ function Header() {
     setMobileMenuAchorEl(null);
   };
 
+  const logOut = async () => {
+    await axios.get("/user/logout");
+    localStorage.clear();
+    setIsAdmin(false);
+    setIsLogged(false);
+    window.location.href = "/";
+    closeMobileMenu();
+  };
+
   const mobileMenu = (
     <Menu
       anchorEl={mobileMenuAnchorEl}
@@ -155,12 +172,29 @@ function Header() {
       keepMounted
       open={isMobileMenuOpen}
     >
-      <MenuItem component={Link} to="/login" onClick={closeMobileMenu}>
-        <VpnKeyIcon className={classes.icon} /> Login
-      </MenuItem>
-      <MenuItem component={Link} to="/registration" onClick={closeMobileMenu}>
-        <PersonAddIcon className={classes.icon} /> Registration
-      </MenuItem>
+      {isLogged ? (
+        <div>
+          <MenuItem component={Link} to="/profile" onClick={closeMobileMenu}>
+            <AccountCircleIcon className={classes.icon} /> Profile
+          </MenuItem>
+          <MenuItem component={Link} to="/" onClick={logOut}>
+            <ExitToAppIcon className={classes.icon} /> Log Out
+          </MenuItem>
+        </div>
+      ) : (
+        <div>
+          <MenuItem component={Link} to="/login" onClick={closeMobileMenu}>
+            <VpnKeyIcon className={classes.icon} /> Login
+          </MenuItem>
+          <MenuItem
+            component={Link}
+            to="/registration"
+            onClick={closeMobileMenu}
+          >
+            <PersonAddIcon className={classes.icon} /> Registration
+          </MenuItem>
+        </div>
+      )}
     </Menu>
   );
 
@@ -205,25 +239,49 @@ function Header() {
                 inputProps={{ "aria-label": "search" }}
               />
             </div>
-            <div className={classes.sectionDesktop}>
-              <Button
-                className={classes.Button}
-                variant="contained"
-                color="primary"
-                component={Link}
-                to="/login"
-              >
-                <VpnKeyIcon className={classes.icon} /> Login
-              </Button>
-              <Button
-                className={classes.Button}
-                variant="contained"
-                component={Link}
-                to="/registration"
-              >
-                <PersonAddIcon className={classes.icon} /> registration
-              </Button>
-            </div>
+            {isLogged ? (
+              <div className={classes.sectionDesktop}>
+                <Button
+                  className={classes.Button}
+                  variant="contained"
+                  color="default"
+                  component={Link}
+                  to="/profile"
+                >
+                  <AccountCircleIcon className={classes.icon} /> Profile
+                </Button>
+                <Button
+                  className={classes.Button}
+                  variant="contained"
+                  color="secondary"
+                  component={Link}
+                  to="/"
+                  onClick={logOut}
+                >
+                  <ExitToAppIcon className={classes.icon} /> Log Out
+                </Button>
+              </div>
+            ) : (
+              <div className={classes.sectionDesktop}>
+                <Button
+                  className={classes.Button}
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  to="/login"
+                >
+                  <VpnKeyIcon className={classes.icon} /> Login
+                </Button>
+                <Button
+                  className={classes.Button}
+                  variant="contained"
+                  component={Link}
+                  to="/registration"
+                >
+                  <PersonAddIcon className={classes.icon} /> registration
+                </Button>
+              </div>
+            )}
             <IconButton
               className={classes.iconDesktop}
               color="inherit"
@@ -233,7 +291,7 @@ function Header() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <DrawerBox open={open} />
+        <DrawerBox open={open} isAdmin={isAdmin} />
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>

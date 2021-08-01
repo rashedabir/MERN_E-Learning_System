@@ -6,13 +6,14 @@ import {
   Paper,
   Container,
 } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
 import LiveTvIcon from "@material-ui/icons/LiveTv";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import CountUp from "react-countup";
 import home from "../asstes/home.jpg";
 import CourseDashboard from "../components/CourseDashboard";
+import { GlobalState } from "../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard() {
   const classes = useStyles();
+  const state = useContext(GlobalState);
+  console.log(state);
   return (
     <>
       <div className="dashboard">

@@ -10,7 +10,7 @@ import {
 import clsx from "clsx";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { drawerItemList } from "../utils/drawerItemList";
+import { adminDrawerItemList, drawerItemList } from "../utils/drawerItemList";
 
 const drawerWidth = 240;
 
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DrawerBox({ open }) {
+function DrawerBox({ open, isAdmin }) {
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = useState(1);
 
@@ -76,22 +76,39 @@ function DrawerBox({ open }) {
     >
       <Divider />
       <List className={classes.drawerList}>
-        {drawerItemList.map((item) => (
-          <ListItem
-            button
-            component={Link}
-            to={item.path}
-            selected={selectedIndex === item.id}
-            onClick={(event) => handleListItemClick(event, item.id)}
-          >
-            <ListItemIcon
-              className={selectedIndex === item.id && classes.bgIcon}
-            >
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText primary={item.title} />
-          </ListItem>
-        ))}
+        {isAdmin
+          ? adminDrawerItemList.map((item) => (
+              <ListItem
+                button
+                component={Link}
+                to={item.path}
+                selected={selectedIndex === item.id}
+                onClick={(event) => handleListItemClick(event, item.id)}
+              >
+                <ListItemIcon
+                  className={selectedIndex === item.id && classes.bgIcon}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItem>
+            ))
+          : drawerItemList.map((item) => (
+              <ListItem
+                button
+                component={Link}
+                to={item.path}
+                selected={selectedIndex === item.id}
+                onClick={(event) => handleListItemClick(event, item.id)}
+              >
+                <ListItemIcon
+                  className={selectedIndex === item.id && classes.bgIcon}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItem>
+            ))}
       </List>
       <List className={classes.footer}>
         <Divider />
