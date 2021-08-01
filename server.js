@@ -10,6 +10,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use("/user", require("./routes/userRouter"));
+app.use("/api", require("./routes/categoryRouter"));
 
 const PORT = process.env.PORT || 5000;
 const URI = process.env.MONGODB_URL;

@@ -25,6 +25,7 @@ import { Route, Switch } from "react-router-dom";
 import CourseList from "../screens/CourseList";
 import About from "../screens/About";
 import Login from "../screens/Login";
+import Caterory from "../screens/Caterory";
 import Registration from "../screens/Registration";
 import logo from "../asstes/logo.png";
 import { useContext } from "react";
@@ -32,6 +33,7 @@ import { GlobalState } from "../context/GlobalState";
 import axios from "axios";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import NotFound from "../screens/NotFound";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -298,8 +300,22 @@ function Header() {
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/course" component={CourseList} />
             <Route exact path="/about" component={About} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/registration" component={Registration} />
+            <Route
+              exact
+              path="/login"
+              component={isLogged ? NotFound : Login}
+            />
+            <Route
+              exact
+              path="/registration"
+              component={isLogged ? NotFound : Registration}
+            />
+            <Route
+              exact
+              path="/category"
+              component={isAdmin ? Caterory : NotFound}
+            />
+            <Route exact path="*" component={NotFound} />
           </Switch>
         </main>
       </div>

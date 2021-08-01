@@ -48,6 +48,6 @@ export const adminDrawerItemList = [
     id: 4,
     title: "Add Category",
     icon: <CategoryIcon />,
-    path: "/addcategory",
+    path: "/category",
   },
 ];
