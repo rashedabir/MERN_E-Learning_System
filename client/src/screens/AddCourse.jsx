@@ -61,25 +61,21 @@ function AddCourse() {
   const [categories] = state.categoryAPI.category;
   const [image, setImage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [code, setCode] = useState("");
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [about, setAbout] = useState("");
+  const [category, setCategory] = useState("");
+  const [callback, setCallback] = state.courseAPI.callback;
   const classes = useStyles();
+
+  /*-----------------objective-------------------*/
+
   const [objectives, setObjectives] = useState([
     {
       id: uuidv4(),
-      name: "",
-    },
-  ]);
-  const [requirements, setRequirements] = useState([
-    {
-      id: uuidv4(),
-      name: "",
-    },
-  ]);
-  const [videos, setVideos] = useState([
-    {
-      id: uuidv4(),
-      no: 1,
-      name: "",
-      link: "",
+      objective: "",
     },
   ]);
 
@@ -90,71 +86,45 @@ function AddCourse() {
       }
       return i;
     });
+
     setObjectives(newInputFields);
   };
 
-  const handleChangeRequirement = (id, event) => {
-    const newInputFields = objectives.map((i) => {
-      if (id === i.id) {
-        i[event.target.name] = event.target.value;
-      }
-      return i;
-    });
-    setRequirements(newInputFields);
+  const handleAddObjective = () => {
+    setObjectives([...objectives, { id: uuidv4(), objective: "" }]);
   };
 
-  const handleChangevideos = (id, event) => {
-    const newInputFields = videos.map((i) => {
-      if (id === i.id) {
-        i[event.target.name] = event.target.value;
-      }
-      return i;
-    });
-    setVideos(newInputFields);
-  };
-
-  const handleAddObjective = (e) => {
-    e.preventDefault();
-    setObjectives([
-      ...objectives,
-      {
-        id: uuidv4(),
-        name: "",
-      },
-    ]);
-  };
-
-  const handleAddVideos = (e) => {
-    e.preventDefault();
-    setVideos([
-      ...videos,
-      {
-        id: uuidv4(),
-        no: videos.length + 1,
-        name: "",
-        link: "",
-      },
-    ]);
-  };
-
-  const handleAddRequirement = (e) => {
-    e.preventDefault();
-    setRequirements([
-      ...requirements,
-      {
-        id: uuidv4(),
-        name: "",
-      },
-    ]);
-  };
-
-  const handleRemoveobjective = (id) => {
+  const handleRemoveObjective = (id) => {
     const values = [...objectives];
     values.splice(
       values.findIndex((value) => value.id === id),
       1
     );
     setObjectives(values);
+  };
+
+  /*----------------requirement-------------*/
+
+  const [requirements, setRequirements] = useState([
+    {
+      id: uuidv4(),
+      requrement: "",
+    },
+  ]);
+
+  const handleChangeRequirement = (id, event) => {
+    const newInputFields = requirements.map((i) => {
+      if (id === i.id) {
+        i[event.target.name] = event.target.value;
+      }
+      return i;
+    });
+
+    setRequirements(newInputFields);
+  };
+
+  const handleAddRequirement = () => {
+    setRequirements([...requirements, { id: uuidv4(), requrement: "" }]);
   };
 
   const handleRemoveRequirements = (id) => {
@@ -164,6 +134,40 @@ function AddCourse() {
       1
     );
     setRequirements(values);
+  };
+
+  /*-------------------------videos-----------------------*/
+
+  const [videos, setVideos] = useState([
+    {
+      id: uuidv4(),
+      no: 1,
+      vid: "",
+      link: "",
+    },
+  ]);
+
+  const handleChangeVideos = (id, event) => {
+    const newInputFields = videos.map((i) => {
+      if (id === i.id) {
+        i[event.target.name] = event.target.value;
+      }
+      return i;
+    });
+    setVideos(newInputFields);
+  };
+
+  const handleAddVideos = (e) => {
+    e.preventDefault();
+    setVideos([
+      ...videos,
+      {
+        id: uuidv4(),
+        no: videos.length + 1,
+        vid: "",
+        link: "",
+      },
+    ]);
   };
 
   const handleRemoveVideos = (id) => {
@@ -212,6 +216,32 @@ function AddCourse() {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(
+        "/api/courses",
+        {
+          course_code: code,
+          title: title,
+          price: price,
+          description: description,
+          about: about,
+          images: image,
+          category: category,
+          objective: objectives,
+          requirements: requirements,
+          videos: videos,
+        },
+        { headers: { Authorization: token } }
+      );
+      setCallback(!callback);
+      toast.success("Course Addedd");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
   const styleUpload = {
     display: image ? "block" : "none",
   };
@@ -226,18 +256,30 @@ function AddCourse() {
               id="filled-basic"
               label="Course Code"
               variant="filled"
+              onChange={(e) => {
+                setCode(e.target.value);
+              }}
+              value={code}
             />
             <TextField
               className={classes.fullWidth}
               id="filled-basic"
               label="Title"
               variant="filled"
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+              value={title}
             />
             <TextField
               className={classes.fullWidth}
               id="filled-basic"
               label="Price"
               variant="filled"
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+              value={price}
             />
             <FormControl variant="filled" className={classes.fullWidth}>
               <InputLabel>Category</InputLabel>
@@ -246,11 +288,15 @@ function AddCourse() {
                 inputProps={{
                   id: "filled-age-native-simple",
                 }}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+                value={category}
               >
                 <option aria-label="None" value="" />
                 {categories &&
-                  categories.map((category) => (
-                    <option value={category.name}> {category.name} </option>
+                  categories.map((cat) => (
+                    <option value={cat.name}> {cat.name} </option>
                   ))}
               </Select>
             </FormControl>
@@ -261,6 +307,10 @@ function AddCourse() {
               rows={4}
               variant="filled"
               className={classes.fullWidth}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+              value={description}
             />
             {objectives.map((objective, index) => (
               <div
@@ -271,10 +321,10 @@ function AddCourse() {
                 <TextField
                   id="filled-basic"
                   label="Objective"
-                  name="name"
+                  name="objective"
                   variant="filled"
                   style={{ width: "100%" }}
-                  value={objective.name}
+                  value={objective.obj}
                   onChange={(event) =>
                     handleChangeObjective(objective.id, event)
                   }
@@ -292,7 +342,7 @@ function AddCourse() {
                   variant="contained"
                   color="secondary"
                   disabled={objectives.length === 1}
-                  onClick={() => handleRemoveobjective(objective.id)}
+                  onClick={() => handleRemoveObjective(objective.id)}
                 >
                   <RemoveIcon />
                 </Button>
@@ -331,6 +381,10 @@ function AddCourse() {
               rows={4}
               variant="filled"
               className={classes.fullWidth}
+              onChange={(e) => {
+                setAbout(e.target.value);
+              }}
+              value={about}
             />
             {requirements.map((requirement, index) => (
               <div
@@ -341,10 +395,10 @@ function AddCourse() {
                 <TextField
                   id="filled-basic"
                   label="Requirement"
-                  name="name"
+                  name="requrement"
                   variant="filled"
                   style={{ width: "100%" }}
-                  value={requirement.name}
+                  value={requirement.req}
                   onChange={(event) =>
                     handleChangeRequirement(requirement.id, event)
                   }
@@ -381,10 +435,10 @@ function AddCourse() {
                 className={classes.fullWidth}
                 id="filled-basic"
                 label="Video Name"
-                name="name"
+                name="vid"
                 variant="filled"
-                value={video.name}
-                onChange={(event) => handleChangevideos(video.id, event)}
+                value={video.vid}
+                onChange={(event) => handleChangeVideos(video.id, event)}
               />
             </div>
           </Grid>
@@ -397,7 +451,7 @@ function AddCourse() {
                 variant="filled"
                 style={{ width: "100%" }}
                 value={video.link}
-                onChange={(event) => handleChangevideos(video.id, event)}
+                onChange={(event) => handleChangeVideos(video.id, event)}
               />
               <Button
                 style={{ marginLeft: "15px" }}
@@ -432,6 +486,7 @@ function AddCourse() {
           variant="contained"
           color="default"
           style={{ padding: "10px 25px" }}
+          onClick={handleSubmit}
         >
           <SaveIcon /> Save
         </Button>
