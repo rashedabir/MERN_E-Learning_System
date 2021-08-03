@@ -51,6 +51,11 @@ const courseSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    videos: {
+      type: Array,
+      default: [],
+      require: true,
+    },
   },
   {
     timestamps: true,

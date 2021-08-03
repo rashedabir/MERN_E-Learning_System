@@ -53,6 +53,7 @@ const courseCtrl = {
         category,
         objective,
         requirements,
+        videos,
       } = req.body;
       if (
         !course_code ||
@@ -62,7 +63,8 @@ const courseCtrl = {
         !about ||
         !category ||
         !objective ||
-        !requirements
+        !requirements ||
+        !videos
       ) {
         return res.status(400).json({ msg: "Inavild Course Details" });
       }
@@ -85,6 +87,7 @@ const courseCtrl = {
         category,
         objective,
         requirements,
+        videos,
       });
       await newCourse.save();
       res.json({ msg: "Created a Course" });
@@ -121,6 +124,7 @@ const courseCtrl = {
         category,
         requirements,
         objective,
+        videos,
       } = req.body;
       if (
         !title ||
@@ -129,9 +133,10 @@ const courseCtrl = {
         !category ||
         !about ||
         !requirements ||
-        !objective
+        !objective ||
+        !videos
       ) {
-        return res.status(400).json({ msg: "Inavild Product Details" });
+        return res.status(400).json({ msg: "Inavild Course Details" });
       }
       if (!images) {
         return res.status(400).json({ msg: "No Image is Selected" });
@@ -147,6 +152,7 @@ const courseCtrl = {
           category,
           requirements,
           objective,
+          videos,
         }
       );
       res.json({ msg: "Course is Updated" });

@@ -34,6 +34,7 @@ import axios from "axios";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NotFound from "../screens/NotFound";
+import AddCourse from "../screens/AddCourse";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -314,6 +315,11 @@ function Header() {
               exact
               path="/category"
               component={isAdmin ? Caterory : NotFound}
+            />
+            <Route
+              exact
+              path="/addcourse"
+              component={isAdmin ? AddCourse : NotFound}
             />
             <Route exact path="*" component={NotFound} />
           </Switch>
