@@ -13,6 +13,7 @@ import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import CountUp from "react-countup";
 import home from "../asstes/home.jpg";
 import CourseDashboard from "../components/CourseDashboard";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +55,12 @@ function Dashboard() {
               Business
             </Typography>
             <br />
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              component={Link}
+              to="/course"
+              color="primary"
+            >
               make a tour
             </Button>
           </div>

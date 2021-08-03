@@ -17,6 +17,7 @@ import { GlobalState } from "../context/GlobalState";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingScreen from "react-loading-screen";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,12 +64,13 @@ function AddCourse() {
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState("Free 100%");
   const [description, setDescription] = useState("");
   const [about, setAbout] = useState("");
   const [category, setCategory] = useState("");
   const [callback, setCallback] = state.courseAPI.callback;
   const classes = useStyles();
+  const history = useHistory();
 
   /*-----------------objective-------------------*/
 
@@ -236,6 +238,7 @@ function AddCourse() {
         { headers: { Authorization: token } }
       );
       setCallback(!callback);
+      history.push("/course");
       toast.success("Course Addedd");
     } catch (error) {
       toast.error(error.response.data.msg);
@@ -276,6 +279,7 @@ function AddCourse() {
               id="filled-basic"
               label="Price"
               variant="filled"
+              disabled
               onChange={(e) => {
                 setPrice(e.target.value);
               }}
