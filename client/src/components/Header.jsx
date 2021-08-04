@@ -36,6 +36,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NotFound from "../screens/NotFound";
 import AddCourse from "../screens/AddCourse";
 import LoadingScreen from "react-loading-screen";
+import CourseDetails from "../screens/CourseDetails";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -337,6 +338,11 @@ function Header() {
                   exact
                   path="/addcourse"
                   component={isAdmin ? AddCourse : NotFound}
+                />
+                <Route
+                  exact
+                  path="/course_detail/:id"
+                  component={CourseDetails}
                 />
                 <Route exact path="*" component={NotFound} />
               </Switch>

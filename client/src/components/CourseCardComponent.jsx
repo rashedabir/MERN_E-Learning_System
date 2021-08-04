@@ -35,7 +35,7 @@ function CourseCardComponent({ course, deleteCourse }) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea component={Link} to={`/course_detail/${course._id}`}>
         <CardMedia
           className={classes.media}
           image={course.images.url}
@@ -85,7 +85,12 @@ function CourseCardComponent({ course, deleteCourse }) {
           <Button size="small" color="primary">
             Share
           </Button>
-          <Button size="small" color="primary">
+          <Button
+            size="small"
+            color="primary"
+            component={Link}
+            to={`/course_detail/${course._id}`}
+          >
             Learn More
           </Button>
         </CardActions>

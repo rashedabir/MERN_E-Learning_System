@@ -47,7 +47,6 @@ function Login() {
       localStorage.setItem("firstLogin", true);
 
       window.location.href = "/";
-      toast.success("Wellcome");
     } catch (error) {
       toast.error(error.response.data.msg);
     }

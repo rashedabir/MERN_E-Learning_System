@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const { useState, useEffect } = require("react");
 
@@ -24,6 +25,7 @@ function UserAPI(token) {
           res.data.user.role === 1 ? setIsAdmin(true) : setIsAdmin(false);
           setUser(res.data.user);
           setLoading(false);
+          toast.success("Wellcome");
         } catch (error) {
           alert(error.response.data.msg);
         }
