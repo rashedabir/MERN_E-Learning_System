@@ -35,6 +35,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import NotFound from "../screens/NotFound";
 import AddCourse from "../screens/AddCourse";
+import LoadingScreen from "react-loading-screen";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -146,6 +147,7 @@ function Header() {
   const state = useContext(GlobalState);
   const [isLogged, setIsLogged] = state.userAPI.isLogged;
   const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
+  const [loading] = state.userAPI.loading;
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -203,134 +205,146 @@ function Header() {
 
   return (
     <Fragment>
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton)}
+      {loading ? (
+        <LoadingScreen
+          loading={loading}
+          bgColor="#f1f1f1"
+          spinnerColor="#9ee5f8"
+          textColor="#676767"
+          logoSrc="/logo.png"
+        />
+      ) : (
+        <div>
+          <div className={classes.root}>
+            <CssBaseline />
+            <AppBar
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: open,
+              })}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component={Link}
-              to="/"
-              noWrap
-              className={classes.heading}
-            >
-              <img width="140px" src={logo} alt="logo" />
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
-            {isLogged ? (
-              <div className={classes.sectionDesktop}>
-                <Button
-                  className={classes.Button}
-                  variant="contained"
-                  color="default"
-                  component={Link}
-                  to="/profile"
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerOpen}
+                  edge="start"
+                  className={clsx(classes.menuButton)}
                 >
-                  <AccountCircleIcon className={classes.icon} /> Profile
-                </Button>
-                <Button
-                  className={classes.Button}
-                  variant="contained"
-                  color="secondary"
+                  <MenuIcon />
+                </IconButton>
+                <Typography
                   component={Link}
                   to="/"
-                  onClick={logOut}
+                  noWrap
+                  className={classes.heading}
                 >
-                  <ExitToAppIcon className={classes.icon} /> Log Out
-                </Button>
-              </div>
-            ) : (
-              <div className={classes.sectionDesktop}>
-                <Button
-                  className={classes.Button}
-                  variant="contained"
-                  color="primary"
-                  component={Link}
-                  to="/login"
+                  <img width="140px" src={logo} alt="logo" />
+                </Typography>
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <SearchIcon />
+                  </div>
+                  <InputBase
+                    placeholder="Search…"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </div>
+                {isLogged ? (
+                  <div className={classes.sectionDesktop}>
+                    <Button
+                      className={classes.Button}
+                      variant="contained"
+                      color="default"
+                      component={Link}
+                      to="/profile"
+                    >
+                      <AccountCircleIcon className={classes.icon} /> Profile
+                    </Button>
+                    <Button
+                      className={classes.Button}
+                      variant="contained"
+                      color="secondary"
+                      component={Link}
+                      to="/"
+                      onClick={logOut}
+                    >
+                      <ExitToAppIcon className={classes.icon} /> Log Out
+                    </Button>
+                  </div>
+                ) : (
+                  <div className={classes.sectionDesktop}>
+                    <Button
+                      className={classes.Button}
+                      variant="contained"
+                      color="primary"
+                      component={Link}
+                      to="/login"
+                    >
+                      <VpnKeyIcon className={classes.icon} /> Login
+                    </Button>
+                    <Button
+                      className={classes.Button}
+                      variant="contained"
+                      component={Link}
+                      to="/registration"
+                    >
+                      <PersonAddIcon className={classes.icon} /> registration
+                    </Button>
+                  </div>
+                )}
+                <IconButton
+                  className={classes.iconDesktop}
+                  color="inherit"
+                  onClick={openMobileMenu}
                 >
-                  <VpnKeyIcon className={classes.icon} /> Login
-                </Button>
-                <Button
-                  className={classes.Button}
-                  variant="contained"
-                  component={Link}
-                  to="/registration"
-                >
-                  <PersonAddIcon className={classes.icon} /> registration
-                </Button>
-              </div>
-            )}
-            <IconButton
-              className={classes.iconDesktop}
-              color="inherit"
-              onClick={openMobileMenu}
-            >
-              <MoreVertIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <DrawerBox open={open} isAdmin={isAdmin} />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path="/course" component={CourseList} />
-            <Route exact path="/about" component={About} />
-            <Route
-              exact
-              path="/login"
-              component={isLogged ? NotFound : Login}
-            />
-            <Route
-              exact
-              path="/registration"
-              component={isLogged ? NotFound : Registration}
-            />
-            <Route
-              exact
-              path="/category"
-              component={isAdmin ? Caterory : NotFound}
-            />
-            <Route
-              exact
-              path="/edit_course/:id"
-              component={isAdmin ? AddCourse : NotFound}
-            />
-            <Route
-              exact
-              path="/addcourse"
-              component={isAdmin ? AddCourse : NotFound}
-            />
-            <Route exact path="*" component={NotFound} />
-          </Switch>
-        </main>
-      </div>
-      {mobileMenu}
+                  <MoreVertIcon />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <DrawerBox open={open} isAdmin={isAdmin} />
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <Switch>
+                <Route exact path="/" component={Dashboard} />
+                <Route exact path="/course" component={CourseList} />
+                <Route exact path="/about" component={About} />
+                <Route
+                  exact
+                  path="/login"
+                  component={isLogged ? NotFound : Login}
+                />
+                <Route
+                  exact
+                  path="/registration"
+                  component={isLogged ? NotFound : Registration}
+                />
+                <Route
+                  exact
+                  path="/category"
+                  component={isAdmin ? Caterory : NotFound}
+                />
+                <Route
+                  exact
+                  path="/edit_course/:id"
+                  component={isAdmin ? AddCourse : NotFound}
+                />
+                <Route
+                  exact
+                  path="/addcourse"
+                  component={isAdmin ? AddCourse : NotFound}
+                />
+                <Route exact path="*" component={NotFound} />
+              </Switch>
+            </main>
+          </div>
+          {mobileMenu}
+        </div>
+      )}
     </Fragment>
   );
 }

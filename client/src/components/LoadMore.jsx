@@ -8,7 +8,7 @@ function LoadMore() {
   const [result] = state.courseAPI.result;
   return (
     <div className="load_more">
-      {result < page * 6 ? (
+      {result < page * 8 ? (
         ""
       ) : (
         <Button color="primary" onClick={() => setPage(page + 1)}>

@@ -7,11 +7,13 @@ function UserAPI(token) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [callback, setCallback] = useState(false);
   const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (token) {
       const getUser = async () => {
         try {
+          setLoading(true);
           const res = await axios.get(
             "https://course-hub-bd.herokuapp.com/user/infor",
             {
@@ -21,6 +23,7 @@ function UserAPI(token) {
           setIsLogged(true);
           res.data.user.role === 1 ? setIsAdmin(true) : setIsAdmin(false);
           setUser(res.data.user);
+          setLoading(false);
         } catch (error) {
           alert(error.response.data.msg);
         }
@@ -34,6 +37,7 @@ function UserAPI(token) {
     isAdmin: [isAdmin, setIsAdmin],
     callback: [callback, setCallback],
     user: [user, setUser],
+    loading: [loading, setLoading],
   };
 }
 
