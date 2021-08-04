@@ -318,6 +318,11 @@ function Header() {
             />
             <Route
               exact
+              path="/edit_course/:id"
+              component={isAdmin ? AddCourse : NotFound}
+            />
+            <Route
+              exact
               path="/addcourse"
               component={isAdmin ? AddCourse : NotFound}
             />

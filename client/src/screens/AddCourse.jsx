@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -17,7 +17,7 @@ import { GlobalState } from "../context/GlobalState";
 import axios from "axios";
 import { toast } from "react-toastify";
 import LoadingScreen from "react-loading-screen";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,6 +71,10 @@ function AddCourse() {
   const [callback, setCallback] = state.courseAPI.callback;
   const classes = useStyles();
   const history = useHistory();
+  const [onEdit, setOnEdit] = useState(false);
+  const [_id, setId] = useState("");
+  const params = useParams();
+  const [courses] = state.courseAPI.courses;
 
   /*-----------------objective-------------------*/
 
@@ -221,29 +225,103 @@ function AddCourse() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        "/api/courses",
-        {
-          course_code: code,
-          title: title,
-          price: price,
-          description: description,
-          about: about,
-          images: image,
-          category: category,
-          objective: objectives,
-          requirements: requirements,
-          videos: videos,
-        },
-        { headers: { Authorization: token } }
-      );
-      setCallback(!callback);
-      history.push("/course");
-      toast.success("Course Addedd");
+      if (onEdit) {
+        await axios.put(
+          `/api/courses/${_id}`,
+          {
+            course_code: code,
+            title: title,
+            price: price,
+            description: description,
+            about: about,
+            images: image,
+            category: category,
+            objective: objectives,
+            requirements: requirements,
+            videos: videos,
+          },
+          { headers: { Authorization: token } }
+        );
+        setCallback(!callback);
+        history.push("/course");
+        toast.success("Course Updated");
+      } else {
+        await axios.post(
+          "/api/courses",
+          {
+            course_code: code,
+            title: title,
+            price: price,
+            description: description,
+            about: about,
+            images: image,
+            category: category,
+            objective: objectives,
+            requirements: requirements,
+            videos: videos,
+          },
+          { headers: { Authorization: token } }
+        );
+        setCallback(!callback);
+        history.push("/course");
+        toast.success("Course Added");
+      }
     } catch (error) {
       toast.error(error.response.data.msg);
     }
   };
+
+  useEffect(() => {
+    if (params.id) {
+      courses.forEach((course) => {
+        if (course._id === params.id) {
+          setOnEdit(true);
+          setId(course._id);
+          setCode(course.course_code);
+          setTitle(course.title);
+          setPrice(course.price);
+          setDescription(course.description);
+          setAbout(course.about);
+          setImage(course.images);
+          setCategory(course.category);
+          setObjectives(course.objective);
+          setRequirements(course.requirements);
+          setVideos(course.videos);
+        }
+      });
+    } else {
+      setOnEdit(false);
+      setCode("");
+      setTitle("");
+      setPrice("Free 100%");
+      setDescription("");
+      setAbout("");
+      setImage(false);
+      setCategory("");
+      setObjectives([
+        {
+          id: uuidv4(),
+          objective: "",
+        },
+      ]);
+      setRequirements([
+        {
+          id: uuidv4(),
+          requrement: "",
+        },
+      ]);
+      setVideos([
+        {
+          id: uuidv4(),
+          no: 1,
+          vid: "",
+          link: "",
+        },
+      ]);
+    }
+  }, [params.id, courses]);
+
+  console.log(courses);
 
   const styleUpload = {
     display: image ? "block" : "none",
@@ -328,19 +406,11 @@ function AddCourse() {
                   name="objective"
                   variant="filled"
                   style={{ width: "100%" }}
-                  value={objective.obj}
+                  value={objective.objective}
                   onChange={(event) =>
                     handleChangeObjective(objective.id, event)
                   }
                 />
-                <Button
-                  style={{ marginLeft: "15px" }}
-                  variant="contained"
-                  color="primary"
-                  onClick={handleAddObjective}
-                >
-                  <AddIcon />
-                </Button>
                 <Button
                   style={{ marginLeft: "15px" }}
                   variant="contained"
@@ -352,6 +422,14 @@ function AddCourse() {
                 </Button>
               </div>
             ))}
+            <Button
+              style={{ marginLeft: "15px" }}
+              variant="contained"
+              color="primary"
+              onClick={handleAddObjective}
+            >
+              <AddIcon />
+            </Button>
           </div>
         </Grid>
         <Grid item xs={12} sm={12} lg={6} md={6}>
@@ -402,19 +480,11 @@ function AddCourse() {
                   name="requrement"
                   variant="filled"
                   style={{ width: "100%" }}
-                  value={requirement.req}
+                  value={requirement.requrement}
                   onChange={(event) =>
                     handleChangeRequirement(requirement.id, event)
                   }
                 />
-                <Button
-                  style={{ marginLeft: "15px" }}
-                  variant="contained"
-                  color="primary"
-                  onClick={handleAddRequirement}
-                >
-                  <AddIcon />
-                </Button>
                 <Button
                   style={{ marginLeft: "15px" }}
                   variant="contained"
@@ -426,6 +496,14 @@ function AddCourse() {
                 </Button>
               </div>
             ))}
+            <Button
+              style={{ marginLeft: "15px" }}
+              variant="contained"
+              color="primary"
+              onClick={handleAddRequirement}
+            >
+              <AddIcon />
+            </Button>
           </div>
         </Grid>
         <h1 className={classes.heading}>Add Videos</h1>
@@ -492,7 +570,7 @@ function AddCourse() {
           style={{ padding: "10px 25px" }}
           onClick={handleSubmit}
         >
-          <SaveIcon /> Save
+          <SaveIcon /> {onEdit ? "Update" : "Save"}
         </Button>
       </div>
     </div>

@@ -8,7 +8,7 @@ class APIfeatures {
   filtering() {
     const queryObj = { ...this.queryString };
 
-    const excludedFields = ["page", "sort", "limit"];
+    const excludedFields = ["page", "limit"];
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
@@ -21,16 +21,6 @@ class APIfeatures {
     return this;
   }
 
-  sorting() {
-    if (this.queryString.sort) {
-      const sortBy = this.queryString.sort.split(",").join(" ");
-      this.query = this.query.sort(sortBy);
-    } else {
-      this.query = this.query.sort("-createdAt");
-    }
-
-    return this;
-  }
   paginating() {
     const page = this.queryString.page * 1 || 1;
     const limit = this.queryString.limit * 1 || 9;
@@ -99,7 +89,6 @@ const courseCtrl = {
     try {
       const features = new APIfeatures(Courses.find(), req.query)
         .filtering()
-        .sorting()
         .paginating();
 
       const courses = await features.query;

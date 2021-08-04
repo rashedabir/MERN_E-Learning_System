@@ -8,7 +8,9 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalState } from "../context/GlobalState";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -21,10 +23,16 @@ const useStyles = makeStyles({
     maxHeight: 100,
     overflow: "hidden",
   },
+  title: {
+    textTransform: "capitalize",
+  },
 });
 
-function CourseCardComponent({ course }) {
+function CourseCardComponent({ course, deleteCourse }) {
+  const state = useContext(GlobalState);
+  const [isAdmin] = state.userAPI.isAdmin;
   const classes = useStyles();
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -34,7 +42,12 @@ function CourseCardComponent({ course }) {
           title={course.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography
+            className={classes.title}
+            gutterBottom
+            variant="h5"
+            component="h2"
+          >
             {course.title}
           </Typography>
           <Typography
@@ -47,14 +60,36 @@ function CourseCardComponent({ course }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
+      {isAdmin ? (
+        <CardActions>
+          <Button
+            size="medium"
+            color="primary"
+            component={Link}
+            to={`/edit_course/${course._id}`}
+          >
+            Edit
+          </Button>
+          <Button
+            size="medium"
+            color="secondary"
+            onClick={() => {
+              deleteCourse(course._id, course.images.public_id);
+            }}
+          >
+            Delete
+          </Button>
+        </CardActions>
+      ) : (
+        <CardActions>
+          <Button size="small" color="primary">
+            Share
+          </Button>
+          <Button size="small" color="primary">
+            Learn More
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 }
