@@ -9,6 +9,7 @@ function UserAPI(token) {
   const [callback, setCallback] = useState(false);
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     if (token) {
@@ -22,6 +23,7 @@ function UserAPI(token) {
             }
           );
           setIsLogged(true);
+          setList(res.data.user.list);
           res.data.user.role === 1 ? setIsAdmin(true) : setIsAdmin(false);
           setUser(res.data.user);
           setLoading(false);
@@ -34,12 +36,39 @@ function UserAPI(token) {
     }
   }, [token]);
 
+  const addList = async (course) => {
+    if (!isLogged) {
+      return alert("Please Login or Registration to Continue Buying");
+    }
+
+    const check = list.every((item) => {
+      return item._id !== course._id;
+    });
+
+    if (check) {
+      setList([...list, { ...course }]);
+
+      await axios.patch(
+        "/user/addlist",
+        { list: [...list, { ...course }] },
+        {
+          headers: { Authorization: token },
+        }
+      );
+      toast.success("enrolled");
+    } else {
+      toast.warn("Already Enrolled in This Course");
+    }
+  };
+
   return {
     isLogged: [isLogged, setIsLogged],
     isAdmin: [isAdmin, setIsAdmin],
     callback: [callback, setCallback],
     user: [user, setUser],
     loading: [loading, setLoading],
+    addList: addList,
+    list: [list, setList],
   };
 }
 

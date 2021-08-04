@@ -65,15 +65,18 @@ function CourseDetails() {
   const state = useContext(GlobalState);
   const [courses] = state.courseAPI.courses;
   const [isLogged] = state.userAPI.isLogged;
+  const addList = state.userAPI.addList;
+  const [list] = state.userAPI.list;
   const [details, setDetails] = useState([]);
   const [image, setImage] = useState([]);
   const [objective, setObjective] = useState([]);
   const [requirements, setRequirements] = useState([]);
+  const [enrolled, setEnrolled] = useState(false);
   const classes = useStyles();
   var date = new Date(details.updatedAt);
   date = date.toDateString();
 
-  console.log(state);
+  console.log(list);
 
   useEffect(() => {
     if (params.id) {
@@ -87,6 +90,20 @@ function CourseDetails() {
       });
     }
   }, [params.id, courses]);
+
+  useEffect(() => {
+    const checkEnroll = async () => {
+      const check = list.every((item) => {
+        return item._id !== details._id;
+      });
+      if (check) {
+        setEnrolled(true);
+      } else {
+        setEnrolled(false);
+      }
+    };
+    checkEnroll();
+  }, [list, details._id]);
 
   return (
     <Container maxWidth="xl">
@@ -171,8 +188,11 @@ function CourseDetails() {
                     color="primary"
                     className={classes.button}
                     variant="contained"
+                    onClick={() => {
+                      addList(details);
+                    }}
                   >
-                    Enroll
+                    {enrolled ? "enroll" : "enrolled"}
                   </Button>
                 ) : (
                   <Button

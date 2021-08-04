@@ -128,6 +128,23 @@ const userCtrl = {
       return res.status(500).json({ msg: error.message });
     }
   },
+  addList: async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+      if (!user) return res.status(400).json({ msg: "User does not exist." });
+
+      await User.findOneAndUpdate(
+        { _id: req.user.id },
+        {
+          list: req.body.list,
+        }
+      );
+
+      return res.json({ msg: "Enrolles" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };
 
 const createAccessToken = (user) => {
