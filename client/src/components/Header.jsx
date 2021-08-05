@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import MenuIcon from "@material-ui/icons/Menu";
 import DrawerBox from "./DrawerBox";
@@ -19,7 +19,7 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Dashboard from "../screens/Dashboard";
 import { Route, Switch } from "react-router-dom";
 import CourseList from "../screens/CourseList";
@@ -38,6 +38,7 @@ import AddCourse from "../screens/AddCourse";
 import LoadingScreen from "react-loading-screen";
 import CourseDetails from "../screens/CourseDetails";
 import EnrollList from "../screens/EnrollList";
+import Profile from "../screens/Profile";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -150,6 +151,17 @@ function Header() {
   const [isLogged, setIsLogged] = state.userAPI.isLogged;
   const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
   const [loading] = state.userAPI.loading;
+  const [search, setSearch] = state.courseAPI.search;
+  const history = useHistory();
+
+  useEffect(() => {
+    const handleSearch = () => {
+      if (search.length) {
+        history.push("/course");
+      }
+    };
+    handleSearch();
+  }, [history, search.length]);
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -254,6 +266,8 @@ function Header() {
                       input: classes.inputInput,
                     }}
                     inputProps={{ "aria-label": "search" }}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value.toLowerCase())}
                   />
                 </div>
                 {isLogged ? (
@@ -349,6 +363,11 @@ function Header() {
                   exact
                   path="/enroll_list"
                   component={isLogged ? EnrollList : NotFound}
+                />
+                <Route
+                  exact
+                  path="/profile"
+                  component={isLogged ? Profile : NotFound}
                 />
                 <Route exact path="*" component={NotFound} />
               </Switch>

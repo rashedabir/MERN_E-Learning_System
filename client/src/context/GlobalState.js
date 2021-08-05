@@ -18,9 +18,6 @@ export const DataProvider = ({ children }) => {
     const firstLogin = localStorage.getItem("firstLogin");
     if (firstLogin) {
       refreshToken();
-      setTimeout(() => {
-        refreshToken();
-      }, 150000);
     }
   }, []);
 

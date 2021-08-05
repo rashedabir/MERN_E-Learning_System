@@ -10,4 +10,6 @@ router.get("/logout", userCtrl.logout);
 router.get("/infor", auth, userCtrl.getUser);
 router.patch("/addlist", auth, userCtrl.addList);
 
+router.put("/infor/:id", auth, userCtrl.updateUser);
+
 module.exports = router;

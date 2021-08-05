@@ -116,6 +116,7 @@ function CourseDetails() {
                 Title : {details.title}
               </h1>
               <p>Updated at : {date}</p>
+              <p>{details.enrolled} People Enrolled This Course</p>
               <br></br>
               <br></br>
               <br></br>

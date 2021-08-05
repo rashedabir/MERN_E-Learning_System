@@ -119,6 +119,16 @@ a {
   position: relative;
   margin-bottom: 15px;
 }
+.profile_upload {
+  height: 300px;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  position: relative;
+  margin-bottom: 15px;
+  text-align: center;
+  margin: auto;
+}
 #file_up {
   position: relative;
   width: 100%;

@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Courses = require("../models/courseModel");
 
 const userCtrl = {
   register: async (req, res) => {
@@ -140,11 +141,62 @@ const userCtrl = {
         }
       );
 
-      return res.json({ msg: "Enrolles" });
+      user.list.filter((item) => {
+        return enrolled(item._id, item.enrolled);
+      });
+
+      return res.json({ msg: "Enrolled" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
+  updateUser: async (req, res) => {
+    try {
+      const { name, password, rePassword, number, country, region, image } =
+        req.body;
+      if (
+        !name ||
+        !password ||
+        !rePassword ||
+        !number ||
+        !country ||
+        !region ||
+        !image
+      ) {
+        return res.status(400).json({ msg: "Invalid Creadentials" });
+      }
+      if (password.length < 4) {
+        return res.status(400).json({ msg: "Password must be 4 lengths long" });
+      }
+      if (password !== rePassword) {
+        return res.status(400).json({ msg: "Password Doesn't Match" });
+      }
+      const hashPass = await bcrypt.hash(password, 10);
+      await User.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          name,
+          password: hashPass,
+          number,
+          country,
+          region,
+          image,
+        }
+      );
+      res.json({ msg: "profile updated" });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+};
+
+const enrolled = async (id, oldEnrolled) => {
+  await Courses.findOneAndUpdate(
+    { _id: id },
+    {
+      enrolled: 2 + oldEnrolled,
+    }
+  );
 };
 
 const createAccessToken = (user) => {

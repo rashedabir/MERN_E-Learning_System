@@ -43,6 +43,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    image: {
+      type: Object,
+    },
   },
   {
     timestamps: true,

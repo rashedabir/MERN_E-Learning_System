@@ -321,8 +321,6 @@ function AddCourse() {
     }
   }, [params.id, courses]);
 
-  console.log(courses);
-
   const styleUpload = {
     display: image ? "block" : "none",
   };
