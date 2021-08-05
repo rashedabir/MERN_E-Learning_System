@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { GlobalState } from "../context/GlobalState";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -39,6 +39,12 @@ function Filters() {
     setCategory(e.target.value);
     setSearch("");
   };
+
+  useEffect(() => {
+    setCategory("");
+  }, [setCategory]);
+
+  console.log(category);
 
   return (
     <div className={classes.root}>
