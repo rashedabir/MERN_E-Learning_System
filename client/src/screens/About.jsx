@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   description: {
     padding: "20px 0",
   },
+  img: {
+    textAlign: "center",
+  },
 }));
 
 function About() {
@@ -58,65 +61,19 @@ function About() {
                 only.
               </Typography>
               <h2 className={classes.description}>Developed by</h2>
-              <Grid container spacing={3}>
-                <Grid item xs={12} xl={4} md={4} sm={12}>
-                  <img src={rashed} alt="rashed abir" width="100%" />
-                </Grid>
-                <Grid item xs={12} xl={8} md={8} sm={12}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "10px 0",
-                    }}
+              <div className={classes.img}>
+                <img src={rashed} alt="rashed abir" width="30%" />
+                <Typography>
+                  Made with love by{" "}
+                  <a
+                    href="https://rashed-abir.web.app/"
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    <h2>
-                      Name: <strong>Abu Rashed Khan</strong>
-                    </h2>
-                  </div>
-                  <h2 style={{ padding: "10px 0" }}>
-                    <strong>Daffodil International University</strong>
-                  </h2>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "10px 0",
-                    }}
-                  >
-                    <h2>
-                      GitHub:{" "}
-                      <a
-                        href="https://github.com/rashedabir"
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: "blue" }}
-                      >
-                        https://github.com/rashedabir
-                      </a>
-                    </h2>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "10px 0",
-                    }}
-                  >
-                    <h2>
-                      Portfolio:{" "}
-                      <a
-                        href="https://rashed-abir.web.app/"
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: "blue" }}
-                      >
-                        https://rashed-abir.web.app/
-                      </a>
-                    </h2>
-                  </div>
-                </Grid>
-              </Grid>
+                    Rashed Abir
+                  </a>
+                </Typography>
+              </div>
             </Paper>
           </Grid>
         </Grid>
