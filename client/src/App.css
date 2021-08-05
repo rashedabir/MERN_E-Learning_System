@@ -171,3 +171,18 @@ a {
   margin: auto;
   padding-bottom: 50px;
 }
+
+/*-------------------------------about-------------------------------*/
+
+.about_icon {
+  position: relative;
+}
+.about_icon::after {
+  content: "";
+  max-width: 100%;
+  border-top: 2px solid rgb(219, 219, 219);
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 60px;
+}

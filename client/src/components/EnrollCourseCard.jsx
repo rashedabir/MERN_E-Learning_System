@@ -72,7 +72,7 @@ function EnrollCourseCard({ course, removeCourse }) {
             removeCourse(course._id);
           }}
         >
-          unroll
+          unenroll
         </Button>
       </CardActions>
     </Card>
