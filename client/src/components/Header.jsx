@@ -37,6 +37,7 @@ import NotFound from "../screens/NotFound";
 import AddCourse from "../screens/AddCourse";
 import LoadingScreen from "react-loading-screen";
 import CourseDetails from "../screens/CourseDetails";
+import EnrollList from "../screens/EnrollList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -343,6 +344,11 @@ function Header() {
                   exact
                   path="/course_detail/:id"
                   component={CourseDetails}
+                />
+                <Route
+                  exact
+                  path="/enroll_list"
+                  component={isLogged ? EnrollList : NotFound}
                 />
                 <Route exact path="*" component={NotFound} />
               </Switch>

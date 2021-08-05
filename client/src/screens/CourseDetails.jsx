@@ -21,6 +21,7 @@ import PhoneAndroidIcon from "@material-ui/icons/PhoneAndroid";
 import BuildIcon from "@material-ui/icons/Build";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import { Link } from "react-router-dom";
+import PlayList from "../components/PlayList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,12 +72,11 @@ function CourseDetails() {
   const [image, setImage] = useState([]);
   const [objective, setObjective] = useState([]);
   const [requirements, setRequirements] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [enrolled, setEnrolled] = useState(false);
   const classes = useStyles();
   var date = new Date(details.updatedAt);
   date = date.toDateString();
-
-  console.log(list);
 
   useEffect(() => {
     if (params.id) {
@@ -86,6 +86,7 @@ function CourseDetails() {
           setImage(course.images);
           setObjective(course.objective);
           setRequirements(course.requirements);
+          setVideos(course.videos);
         }
       });
     }
@@ -122,6 +123,7 @@ function CourseDetails() {
               <Typography className={classes.dec} component="p">
                 {details.description}
               </Typography>
+              {!enrolled ? <PlayList videoData={videos} /> : null}
               <h1>What You’ll Learn</h1>
               <Grid className={classes.container} container spacing={3}>
                 {objective &&

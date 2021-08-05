@@ -55,7 +55,7 @@ function UserAPI(token) {
           headers: { Authorization: token },
         }
       );
-      toast.success("enrolled");
+      toast.success("Successfully Enrolled");
     } else {
       toast.warn("Already Enrolled in This Course");
     }

@@ -8,9 +8,14 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { adminDrawerItemList, drawerItemList } from "../utils/drawerItemList";
+import { GlobalState } from "../context/GlobalState";
+import {
+  adminDrawerItemList,
+  drawerItemList,
+  isLoggedDrawerItemList,
+} from "../utils/drawerItemList";
 
 const drawerWidth = 240;
 
@@ -55,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
 function DrawerBox({ open, isAdmin }) {
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = useState(1);
+  const state = useContext(GlobalState);
+  const [isLogged] = state.userAPI.isLogged;
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -109,6 +116,24 @@ function DrawerBox({ open, isAdmin }) {
                 <ListItemText primary={item.title} />
               </ListItem>
             ))}
+        {isLogged
+          ? isLoggedDrawerItemList.map((item) => (
+              <ListItem
+                button
+                component={Link}
+                to={item.path}
+                selected={selectedIndex === item.id}
+                onClick={(event) => handleListItemClick(event, item.id)}
+              >
+                <ListItemIcon
+                  className={selectedIndex === item.id && classes.bgIcon}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItem>
+            ))
+          : null}
       </List>
       <List className={classes.footer}>
         <Divider />

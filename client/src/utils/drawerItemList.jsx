@@ -3,6 +3,7 @@ import ListIcon from "@material-ui/icons/List";
 import InfoIcon from "@material-ui/icons/Info";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import CategoryIcon from "@material-ui/icons/Category";
+import SubscriptionsIcon from "@material-ui/icons/Subscriptions";
 
 export const drawerItemList = [
   {
@@ -49,5 +50,14 @@ export const adminDrawerItemList = [
     title: "Add Category",
     icon: <CategoryIcon />,
     path: "/category",
+  },
+];
+
+export const isLoggedDrawerItemList = [
+  {
+    id: 5,
+    title: "Enrolled",
+    icon: <SubscriptionsIcon />,
+    path: "/enroll_list",
   },
 ];
