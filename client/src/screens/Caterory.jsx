@@ -10,6 +10,7 @@ import {
   Grid,
   TextField,
   Button,
+  IconButton,
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { GlobalState } from "../context/GlobalState";
@@ -137,16 +138,8 @@ function Caterory() {
                       <TableCell align="left">
                         <strong>{row.name}</strong>
                       </TableCell>
-                      <TableCell align="right">
-                        <Button
-                          variant="contained"
-                          onClick={() => {
-                            editCategory(row._id, row.name);
-                          }}
-                        >
-                          <EditIcon />
-                        </Button>{" "}
-                        <Button
+                      <TableCell align="right" style={{ display: "flex" }}>
+                        <IconButton
                           variant="contained"
                           color="secondary"
                           onClick={() => {
@@ -154,7 +147,16 @@ function Caterory() {
                           }}
                         >
                           <DeleteIcon />
-                        </Button>
+                        </IconButton>
+                        <IconButton
+                          variant="contained"
+                          color="default"
+                          onClick={() => {
+                            editCategory(row._id, row.name);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>{" "}
                       </TableCell>
                     </TableRow>
                   ))}
