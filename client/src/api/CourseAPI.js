@@ -12,7 +12,9 @@ function CourseAPI() {
   useEffect(() => {
     const getCourses = async () => {
       const res = await axios.get(
-        `/api/courses?limit=${page * 8}&${category}&title[regex]=${search}`
+        `https://course-hub-backend.herokuapp.com/api/courses?limit=${
+          page * 8
+        }&${category}&title[regex]=${search}`
       );
       setCourses(res.data.courses);
       setResult(res.data.result);

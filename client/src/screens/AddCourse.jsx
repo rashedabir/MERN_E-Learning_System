@@ -192,12 +192,16 @@ function AddCourse() {
       let formData = new FormData();
       formData.append("file", file);
       setLoading(true);
-      const res = await axios.post("/api/upload", formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-          Authorization: token,
-        },
-      });
+      const res = await axios.post(
+        "https://course-hub-backend.herokuapp.com/api/upload",
+        formData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
       setLoading(false);
       setImage(res.data);
     } catch (error) {
@@ -209,7 +213,7 @@ function AddCourse() {
     try {
       setLoading(true);
       await axios.post(
-        "/api/destroy",
+        "https://course-hub-backend.herokuapp.com/api/destroy",
         { public_id: image.public_id },
         {
           headers: { Authorization: token },
@@ -227,7 +231,7 @@ function AddCourse() {
     try {
       if (onEdit) {
         await axios.put(
-          `/api/courses/${_id}`,
+          `https://course-hub-backend.herokuapp.com/api/courses/${_id}`,
           {
             course_code: code,
             title: title,
@@ -247,7 +251,7 @@ function AddCourse() {
         toast.success("Course Updated");
       } else {
         await axios.post(
-          "/api/courses",
+          "https://course-hub-backend.herokuapp.com/api/courses",
           {
             course_code: code,
             title: title,

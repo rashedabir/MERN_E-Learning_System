@@ -176,7 +176,7 @@ function Header() {
   };
 
   const logOut = async () => {
-    await axios.get("/user/logout");
+    await axios.get("https://course-hub-backend.herokuapp.com/user/logout");
     localStorage.clear();
     setIsAdmin(false);
     setIsLogged(false);

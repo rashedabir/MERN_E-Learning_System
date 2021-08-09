@@ -73,14 +73,14 @@ function Caterory() {
     try {
       if (edit) {
         await axios.put(
-          `/api/category/${id}`,
+          `https://course-hub-backend.herokuapp.com/api/category/${id}`,
           { name: category },
           { headers: { Authorization: token } }
         );
         toast.warn("Category Updated");
       } else {
         await axios.post(
-          "/api/category",
+          "https://course-hub-backend.herokuapp.com/api/category",
           { name: category },
           { headers: { Authorization: token } }
         );
@@ -104,9 +104,12 @@ function Caterory() {
     setId(id);
     try {
       if (window.confirm("Do you want to Delete this Category?")) {
-        await axios.delete(`/api/category/${id}`, {
-          headers: { Authorization: token },
-        });
+        await axios.delete(
+          `https://course-hub-backend.herokuapp.com/api/category/${id}`,
+          {
+            headers: { Authorization: token },
+          }
+        );
       }
       setCallback(!callback);
       toast.error("Category Deleted");

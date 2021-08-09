@@ -17,7 +17,7 @@ function UserAPI(token) {
         try {
           setLoading(true);
           const res = await axios.get(
-            "https://course-hub-bd.herokuapp.com/user/infor",
+            "https://course-hub-backend.herokuapp.com/user/infor",
             {
               headers: { Authorization: token },
             }
@@ -49,7 +49,7 @@ function UserAPI(token) {
       setList([...list, { ...course }]);
 
       await axios.patch(
-        "/user/addlist",
+        "https://course-hub-backend.herokuapp.com/user/addlist",
         { list: [...list, { ...course }] },
         {
           headers: { Authorization: token },

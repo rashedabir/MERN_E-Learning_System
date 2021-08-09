@@ -59,17 +59,19 @@ function Registration() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/user/register", {
-        userName: userName,
-        name: name,
-        email: email,
-        password: password,
-        rePassword: rePassword,
-        number: number,
-        country: country,
-        region: region,
-      });
-      localStorage.setItem("firstLogin", true);
+      await axios.post(
+        "https://course-hub-backend.herokuapp.com/user/register",
+        {
+          userName: userName,
+          name: name,
+          email: email,
+          password: password,
+          rePassword: rePassword,
+          number: number,
+          country: country,
+          region: region,
+        }
+      );
       window.location.href = "/";
       toast.success("Registration Complete");
     } catch (error) {

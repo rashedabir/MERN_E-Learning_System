@@ -39,15 +39,18 @@ function CourseList() {
       if (window.confirm("want to delete this course?")) {
         setLoading(true);
         const deleteImg = axios.post(
-          "/api/destroy",
+          "https://course-hub-backend.herokuapp.com/api/destroy",
           { public_id },
           {
             headers: { Authorization: token },
           }
         );
-        const deleteCourse = axios.delete(`/api/courses/${id}`, {
-          headers: { Authorization: token },
-        });
+        const deleteCourse = axios.delete(
+          `https://course-hub-backend.herokuapp.com/api/courses/${id}`,
+          {
+            headers: { Authorization: token },
+          }
+        );
         await deleteImg;
         await deleteCourse;
         setCallback(!callback);

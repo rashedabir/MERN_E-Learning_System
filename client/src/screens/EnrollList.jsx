@@ -29,7 +29,7 @@ function EnrollList() {
 
   const fetchList = async (list) => {
     await axios.patch(
-      "/user/addlist",
+      "https://course-hub-backend.herokuapp.com/user/addlist",
       { list: list },
       {
         headers: { Authorization: token },

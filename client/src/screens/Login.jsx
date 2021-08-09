@@ -40,12 +40,10 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/user/login", {
+      await axios.post("https://course-hub-backend.herokuapp.com/user/login", {
         userName: userName,
         password: password,
       });
-      localStorage.setItem("firstLogin", true);
-
       window.location.href = "/";
     } catch (error) {
       toast.error(error.response.data.msg);

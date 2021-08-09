@@ -72,12 +72,16 @@ function Profile() {
       let formData = new FormData();
       formData.append("file", file);
       setLoading(true);
-      const res = await axios.post("/api/upload", formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-          Authorization: token,
-        },
-      });
+      const res = await axios.post(
+        "https://course-hub-backend.herokuapp.com/api/upload",
+        formData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
       setLoading(false);
       setImage(res.data);
     } catch (error) {
@@ -89,7 +93,7 @@ function Profile() {
     try {
       setLoading(true);
       await axios.post(
-        "/api/destroy",
+        "https://course-hub-backend.herokuapp.com/api/destroy",
         { public_id: image.public_id },
         {
           headers: { Authorization: token },
@@ -131,7 +135,7 @@ function Profile() {
     e.preventDefault();
     try {
       await axios.put(
-        `/user/infor/${id}`,
+        `https://course-hub-backend.herokuapp.com/user/infor/${id}`,
         {
           name: name,
           password: password,
