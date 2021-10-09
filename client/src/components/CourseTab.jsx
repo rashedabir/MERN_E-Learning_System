@@ -15,6 +15,7 @@ import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { GlobalState } from "../context/GlobalState";
 import CourseCardComponent from "./CourseCardComponent";
+import LoadingBox from "./LoadingBox";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -72,6 +73,7 @@ function CourseTab() {
   const state = useContext(GlobalState);
   const [category, setCategory] = state.courseAPI.category;
   const [courses] = state.courseAPI.courses;
+  const [loading] = state.courseAPI.loading;
 
   console.log(category);
 
@@ -126,19 +128,23 @@ function CourseTab() {
                 spacing={3}
                 alignContent="stretch"
               >
-                {courses.map((course) => (
-                  <Grid
-                    className={classes.paper}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    style={{ display: "flex" }}
-                  >
-                    <CourseCardComponent key={course._id} course={course} />
-                  </Grid>
-                ))}
+                {courses.length === 0 ? (
+                  <LoadingBox loading={loading} />
+                ) : (
+                  courses.map((course) => (
+                    <Grid
+                      className={classes.paper}
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      style={{ display: "flex" }}
+                    >
+                      <CourseCardComponent key={course._id} course={course} />
+                    </Grid>
+                  ))
+                )}
               </Grid>
             </Grow>
           </TabPanel>
@@ -150,19 +156,23 @@ function CourseTab() {
                 spacing={3}
                 alignContent="stretch"
               >
-                {courses.map((course) => (
-                  <Grid
-                    className={classes.paper}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    style={{ display: "flex" }}
-                  >
-                    <CourseCardComponent key={course._id} course={course} />
-                  </Grid>
-                ))}
+                {courses.length === 0 ? (
+                  <LoadingBox loading={loading} />
+                ) : (
+                  courses.map((course) => (
+                    <Grid
+                      className={classes.paper}
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      style={{ display: "flex" }}
+                    >
+                      <CourseCardComponent key={course._id} course={course} />
+                    </Grid>
+                  ))
+                )}
               </Grid>
             </Grow>
           </TabPanel>
@@ -174,19 +184,23 @@ function CourseTab() {
                 spacing={3}
                 alignContent="stretch"
               >
-                {courses.map((course) => (
-                  <Grid
-                    className={classes.paper}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    style={{ display: "flex" }}
-                  >
-                    <CourseCardComponent key={course._id} course={course} />
-                  </Grid>
-                ))}
+                {courses.length === 0 ? (
+                  <LoadingBox loading={loading} />
+                ) : (
+                  courses.map((course) => (
+                    <Grid
+                      className={classes.paper}
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      style={{ display: "flex" }}
+                    >
+                      <CourseCardComponent key={course._id} course={course} />
+                    </Grid>
+                  ))
+                )}
               </Grid>
             </Grow>
           </TabPanel>

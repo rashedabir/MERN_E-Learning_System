@@ -9,6 +9,7 @@ import axios from "axios";
 import LoadingScreen from "react-loading-screen";
 import Filters from "../components/Filters";
 import LoadMore from "../components/LoadMore";
+import LoadingBox from "../components/LoadingBox";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,7 @@ function CourseList() {
   const classes = useStyles();
   const state = useContext(GlobalState);
   const [courses] = state.courseAPI.courses;
+  const [load] = state.courseAPI.loading;
   const [token] = state.token;
   const [loading, setLoading] = useState(false);
   const [callback, setCallback] = state.courseAPI.callback;
@@ -106,15 +108,7 @@ function CourseList() {
         </Grid>
       </Grow>
       <LoadMore />
-      {courses.length === 0 && (
-        <LoadingScreen
-          loading={loading}
-          bgColor="#f1f1f1"
-          spinnerColor="#9ee5f8"
-          textColor="#676767"
-          logoSrc="/logo.png"
-        />
-      )}
+      {courses.length === 0 && <LoadingBox loading={load} />}
     </>
   );
 }
