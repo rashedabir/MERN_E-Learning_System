@@ -100,7 +100,11 @@ function CourseTab() {
   return (
     <Container maxWidth="xl">
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar
+          position="static"
+          color="default"
+          style={{ marginBottom: courses.length === 0 && "50px" }}
+        >
           <Tabs
             value={value}
             onChange={handleChange}

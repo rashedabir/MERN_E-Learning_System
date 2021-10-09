@@ -4,18 +4,14 @@ import { Grid, Grow } from "@material-ui/core";
 import Loading from "./Loading";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    padding: "25px",
-  },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(0),
   },
   container: {
     padding: "0 5%",
     width: "100%",
-    margin: 0,
-    marginTop: "-20px",
+    margin: "0",
+    marginTop: "-80px",
     paddingBottom: "35px",
   },
 }));

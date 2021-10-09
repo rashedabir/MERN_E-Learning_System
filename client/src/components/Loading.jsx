@@ -10,19 +10,10 @@ import Skeleton from "react-loading-skeleton";
 
 const useStyles = makeStyles({
   root: {
-    width: "400px",
-    marginTop: 0,
-    paddingTop: 0,
+    width: "345px",
   },
   media: {
     width: "100%",
-  },
-  about: {
-    maxHeight: 100,
-    overflow: "hidden",
-  },
-  title: {
-    textTransform: "capitalize",
   },
 });
 
@@ -38,20 +29,10 @@ function Loading({ loading }) {
           className={classes.media}
         />
         <CardContent>
-          <Typography
-            className={classes.title}
-            gutterBottom
-            variant="h5"
-            component="h2"
-          >
+          <Typography gutterBottom variant="h5" component="h2">
             <Skeleton delay={loading} height={20} width="100%" />
           </Typography>
-          <Typography
-            className={classes.about}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
+          <Typography variant="body2" color="textSecondary" component="p">
             <Skeleton delay={loading} height={10} width="100%" count={5} />
           </Typography>
         </CardContent>
