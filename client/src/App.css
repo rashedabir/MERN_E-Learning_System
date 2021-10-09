@@ -196,3 +196,10 @@ a {
   right: 0;
   left: 60px;
 }
+
+.info {
+  flex-basis: 25%;
+  position: sticky;
+  top: 150px;
+  align-self: flex-start;
+}

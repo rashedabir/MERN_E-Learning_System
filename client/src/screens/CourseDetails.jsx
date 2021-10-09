@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     width: "100%",
-    marginTop: "20px",
   },
   button: {
     width: "100%",
@@ -166,7 +165,7 @@ function CourseDetails() {
               </Typography>
             </Paper>
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} lg={3} className="info">
             <Card className={classes.card}>
               <CardMedia
                 component="img"
