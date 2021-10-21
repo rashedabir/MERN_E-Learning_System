@@ -22,11 +22,13 @@ import BuildIcon from "@material-ui/icons/Build";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import { Link } from "react-router-dom";
 import PlayList from "../components/PlayList";
+import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     paddingTop: "50px",
+    marginBottom: "100px",
   },
   paper: {
     padding: theme.spacing(2),
@@ -106,172 +108,176 @@ function CourseDetails() {
   }, [list, details._id]);
 
   return (
-    <Container maxWidth="xl">
-      <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={9}>
-            <Paper className={classes.paper}>
-              <h1 style={{ textTransform: "capitalize" }}>
-                Title : {details.title}
-              </h1>
-              <p>Updated at : {date}</p>
-              <p>{details.enrolled} People Enrolled This Course</p>
-              <br></br>
-              <br></br>
-              <br></br>
-              <h1>Description</h1>
-              <Typography className={classes.dec} component="p">
-                {details.description}
-              </Typography>
-              {!enrolled ? <PlayList videoData={videos} /> : null}
-              <h1>What You’ll Learn</h1>
-              <Grid className={classes.container} container spacing={3}>
-                {objective &&
-                  objective.map((obj) => (
-                    <Grid
-                      item
-                      xs={12}
-                      sm={12}
-                      md={6}
-                      lg={6}
-                      style={{ display: "flex", alignItems: "center" }}
-                    >
-                      <Typography
-                        component="p"
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        <CheckIcon className={classes.icon} /> {obj.objective}
-                      </Typography>
-                    </Grid>
-                  ))}
-              </Grid>
-              <h1>Requirements</h1>
-              <Grid className={classes.container} container spacing={3}>
-                {requirements &&
-                  requirements.map((req) => (
-                    <Grid item xs={12}>
-                      <Typography
-                        component="p"
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        <CreateIcon className={classes.icon} /> {req.requrement}
-                      </Typography>
-                    </Grid>
-                  ))}
-              </Grid>
-              <h1>Here Is Exactly What We Cover In This Course:</h1>
-              <Typography component="p" className={classes.dec}>
-                {details.about}
-              </Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} lg={3} className="info">
-            <Card className={classes.card}>
-              <CardMedia
-                component="img"
-                alt="Contemplative Reptile"
-                height="140"
-                image={image.url}
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography
-                  style={{ textTransform: "capitalize" }}
-                  align="center"
-                  variant="h5"
-                  component="h2"
-                >
-                  {details.price}
+    <>
+      <Container maxWidth="xl">
+        <div className={classes.root}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} lg={9}>
+              <Paper className={classes.paper}>
+                <h1 style={{ textTransform: "capitalize" }}>
+                  Title : {details.title}
+                </h1>
+                <p>Updated at : {date}</p>
+                <p>{details.enrolled} People Enrolled This Course</p>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h1>Description</h1>
+                <Typography className={classes.dec} component="p">
+                  {details.description}
                 </Typography>
-              </CardContent>
-              <CardActions>
-                {isLogged ? (
-                  <Button
-                    color="primary"
-                    className={classes.button}
-                    variant="contained"
-                    onClick={() => {
-                      addList(details);
+                {!enrolled ? <PlayList videoData={videos} /> : null}
+                <h1>What You’ll Learn</h1>
+                <Grid className={classes.container} container spacing={3}>
+                  {objective &&
+                    objective.map((obj) => (
+                      <Grid
+                        item
+                        xs={12}
+                        sm={12}
+                        md={6}
+                        lg={6}
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        <Typography
+                          component="p"
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
+                          <CheckIcon className={classes.icon} /> {obj.objective}
+                        </Typography>
+                      </Grid>
+                    ))}
+                </Grid>
+                <h1>Requirements</h1>
+                <Grid className={classes.container} container spacing={3}>
+                  {requirements &&
+                    requirements.map((req) => (
+                      <Grid item xs={12}>
+                        <Typography
+                          component="p"
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
+                          <CreateIcon className={classes.icon} />{" "}
+                          {req.requrement}
+                        </Typography>
+                      </Grid>
+                    ))}
+                </Grid>
+                <h1>Here Is Exactly What We Cover In This Course:</h1>
+                <Typography component="p" className={classes.dec}>
+                  {details.about}
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} lg={3} className="info">
+              <Card className={classes.card}>
+                <CardMedia
+                  component="img"
+                  alt="Contemplative Reptile"
+                  height="140"
+                  image={image.url}
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Typography
+                    style={{ textTransform: "capitalize" }}
+                    align="center"
+                    variant="h5"
+                    component="h2"
+                  >
+                    {details.price}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  {isLogged ? (
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      variant="contained"
+                      onClick={() => {
+                        addList(details);
+                      }}
+                    >
+                      {enrolled ? "enroll" : "enrolled"}
+                    </Button>
+                  ) : (
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      variant="contained"
+                      component={Link}
+                      to="/login"
+                    >
+                      Login to Enroll
+                    </Button>
+                  )}
+                </CardActions>
+                <div style={{ padding: "10px" }}>
+                  <Typography style={{ paddingBottom: "10px" }} component="p">
+                    This course includes
+                  </Typography>
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "5px 0",
+                      color: "#777",
                     }}
                   >
-                    {enrolled ? "enroll" : "enrolled"}
-                  </Button>
-                ) : (
-                  <Button
-                    color="primary"
-                    className={classes.button}
-                    variant="contained"
-                    component={Link}
-                    to="/login"
+                    <FindInPageIcon className={classes.icon2} /> 1 article
+                  </p>
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "5px 0",
+                      color: "#777",
+                    }}
                   >
-                    Login to Enroll
-                  </Button>
-                )}
-              </CardActions>
-              <div style={{ padding: "10px" }}>
-                <Typography style={{ paddingBottom: "10px" }} component="p">
-                  This course includes
-                </Typography>
-                <p
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "5px 0",
-                    color: "#777",
-                  }}
-                >
-                  <FindInPageIcon className={classes.icon2} /> 1 article
-                </p>
-                <p
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "5px 0",
-                    color: "#777",
-                  }}
-                >
-                  <AllInclusiveIcon className={classes.icon2} /> Full lifetime
-                  accesso
-                </p>
-                <p
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "5px 0",
-                    color: "#777",
-                  }}
-                >
-                  <PhoneAndroidIcon className={classes.icon2} /> Access on
-                  mobile and TV
-                </p>
-                <p
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "5px 0",
-                    color: "#777",
-                  }}
-                >
-                  <BuildIcon className={classes.icon2} /> SkillsFuture Credit
-                  eligible
-                </p>
-                <p
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "5px 0",
-                    color: "#777",
-                  }}
-                >
-                  <VerifiedUserIcon className={classes.icon2} /> Certificate of
-                  Completion
-                </p>
-              </div>
-            </Card>
+                    <AllInclusiveIcon className={classes.icon2} /> Full lifetime
+                    accesso
+                  </p>
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "5px 0",
+                      color: "#777",
+                    }}
+                  >
+                    <PhoneAndroidIcon className={classes.icon2} /> Access on
+                    mobile and TV
+                  </p>
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "5px 0",
+                      color: "#777",
+                    }}
+                  >
+                    <BuildIcon className={classes.icon2} /> SkillsFuture Credit
+                    eligible
+                  </p>
+                  <p
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "5px 0",
+                      color: "#777",
+                    }}
+                  >
+                    <VerifiedUserIcon className={classes.icon2} /> Certificate
+                    of Completion
+                  </p>
+                </div>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-    </Container>
+        </div>
+      </Container>
+      <Footer />
+    </>
   );
 }
 

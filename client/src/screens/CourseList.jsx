@@ -10,6 +10,7 @@ import LoadingScreen from "react-loading-screen";
 import Filters from "../components/Filters";
 import LoadMore from "../components/LoadMore";
 import LoadingBox from "../components/LoadingBox";
+import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -105,6 +106,7 @@ function CourseList() {
       </Grow>
       <LoadMore />
       {courses.length === 0 && <LoadingBox loading={load} />}
+      <Footer />
     </>
   );
 }

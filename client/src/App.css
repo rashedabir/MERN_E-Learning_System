@@ -203,3 +203,10 @@ a {
   top: 150px;
   align-self: flex-start;
 }
+
+/*----------------------------footer--------------------------*/
+
+footer {
+  background-image: linear-gradient(120deg, #2980b9, #8e44ad);
+  color: #fff;
+}

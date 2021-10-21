@@ -14,6 +14,7 @@ import CountUp from "react-countup";
 import home from "../asstes/home.jpg";
 import CourseDashboard from "../components/CourseDashboard";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -128,6 +129,7 @@ function Dashboard() {
         </div>
       </div>
       <CourseDashboard />
+      <Footer />
     </>
   );
 }

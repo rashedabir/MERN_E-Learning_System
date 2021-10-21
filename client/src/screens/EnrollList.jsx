@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { toast } from "react-toastify";
 import EnrollCourseCard from "../components/EnrollCourseCard";
+import Footer from "../components/Footer";
 import { GlobalState } from "../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,32 +60,35 @@ function EnrollList() {
   };
 
   return (
-    <Grow in>
-      <Grid
-        className={classes.container}
-        container
-        spacing={3}
-        alignContent="stretch"
-      >
-        {list.map((course) => (
-          <Grid
-            className={classes.paper}
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-            style={{ display: "flex" }}
-          >
-            <EnrollCourseCard
-              key={course._id}
-              course={course}
-              removeCourse={removeCourse}
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </Grow>
+    <>
+      <Grow in>
+        <Grid
+          className={classes.container}
+          container
+          spacing={3}
+          alignContent="stretch"
+        >
+          {list.map((course) => (
+            <Grid
+              className={classes.paper}
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              style={{ display: "flex" }}
+            >
+              <EnrollCourseCard
+                key={course._id}
+                course={course}
+                removeCourse={removeCourse}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Grow>
+      <Footer />
+    </>
   );
 }
 

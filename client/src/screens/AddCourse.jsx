@@ -4,13 +4,14 @@ import {
   Button,
   FormControl,
   Grid,
+  IconButton,
   InputLabel,
   Paper,
   Select,
   TextField,
 } from "@material-ui/core";
 import { v4 as uuidv4 } from "uuid";
-import RemoveIcon from "@material-ui/icons/Remove";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import AddIcon from "@material-ui/icons/Add";
 import SaveIcon from "@material-ui/icons/Save";
 import { GlobalState } from "../context/GlobalState";
@@ -336,9 +337,9 @@ function AddCourse() {
           <div className={classes.paper}>
             <TextField
               className={classes.fullWidth}
-              id="filled-basic"
+              id="outlined-basic"
               label="Course Code"
-              variant="filled"
+              variant="outlined"
               onChange={(e) => {
                 setCode(e.target.value);
               }}
@@ -346,9 +347,9 @@ function AddCourse() {
             />
             <TextField
               className={classes.fullWidth}
-              id="filled-basic"
+              id="outlined-basic"
               label="Title"
-              variant="filled"
+              variant="outlined"
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
@@ -356,21 +357,21 @@ function AddCourse() {
             />
             <TextField
               className={classes.fullWidth}
-              id="filled-basic"
+              id="outlined-basic"
               label="Price"
-              variant="filled"
+              variant="outlined"
               disabled
               onChange={(e) => {
                 setPrice(e.target.value);
               }}
               value={price}
             />
-            <FormControl variant="filled" className={classes.fullWidth}>
+            <FormControl variant="outlined" className={classes.fullWidth}>
               <InputLabel>Category</InputLabel>
               <Select
                 native
                 inputProps={{
-                  id: "filled-age-native-simple",
+                  id: "outlined-age-native-simple",
                 }}
                 onChange={(e) => {
                   setCategory(e.target.value);
@@ -385,11 +386,11 @@ function AddCourse() {
               </Select>
             </FormControl>
             <TextField
-              id="filled-multiline-static"
+              id="outlined-multiline-static"
               label="Course Description"
               multiline
               rows={4}
-              variant="filled"
+              variant="outlined"
               className={classes.fullWidth}
               onChange={(e) => {
                 setDescription(e.target.value);
@@ -403,29 +404,28 @@ function AddCourse() {
                 style={{ display: "flex" }}
               >
                 <TextField
-                  id="filled-basic"
+                  id="outlined-basic"
                   label="Objective"
                   name="objective"
-                  variant="filled"
+                  variant="outlined"
                   style={{ width: "100%" }}
                   value={objective.objective}
                   onChange={(event) =>
                     handleChangeObjective(objective.id, event)
                   }
                 />
-                <Button
+                <IconButton
                   style={{ marginLeft: "15px" }}
                   variant="contained"
                   color="secondary"
                   disabled={objectives.length === 1}
                   onClick={() => handleRemoveObjective(objective.id)}
                 >
-                  <RemoveIcon />
-                </Button>
+                  <DeleteOutlineIcon />
+                </IconButton>
               </div>
             ))}
             <Button
-              style={{ marginLeft: "15px" }}
               variant="contained"
               color="primary"
               onClick={handleAddObjective}
@@ -459,11 +459,11 @@ function AddCourse() {
               )}
             </div>
             <TextField
-              id="filled-multiline-static"
+              id="outlined-multiline-static"
               label="Course About"
               multiline
               rows={4}
-              variant="filled"
+              variant="outlined"
               className={classes.fullWidth}
               onChange={(e) => {
                 setAbout(e.target.value);
@@ -477,29 +477,28 @@ function AddCourse() {
                 style={{ display: "flex" }}
               >
                 <TextField
-                  id="filled-basic"
+                  id="outlined-basic"
                   label="Requirement"
                   name="requrement"
-                  variant="filled"
+                  variant="outlined"
                   style={{ width: "100%" }}
                   value={requirement.requrement}
                   onChange={(event) =>
                     handleChangeRequirement(requirement.id, event)
                   }
                 />
-                <Button
+                <IconButton
                   style={{ marginLeft: "15px" }}
                   variant="contained"
                   color="secondary"
                   disabled={requirements.length === 1}
                   onClick={() => handleRemoveRequirements(requirement.id)}
                 >
-                  <RemoveIcon />
-                </Button>
+                  <DeleteOutlineIcon />
+                </IconButton>
               </div>
             ))}
             <Button
-              style={{ marginLeft: "15px" }}
               variant="contained"
               color="primary"
               onClick={handleAddRequirement}
@@ -517,10 +516,10 @@ function AddCourse() {
               <h1 style={{ marginRight: "10px" }}>{video.no}.</h1>
               <TextField
                 className={classes.fullWidth}
-                id="filled-basic"
+                id="outlined-basic"
                 label="Video Name"
                 name="vid"
-                variant="filled"
+                variant="outlined"
                 value={video.vid}
                 onChange={(event) => handleChangeVideos(video.id, event)}
               />
@@ -529,10 +528,10 @@ function AddCourse() {
           <Grid item xs={12} sm={12} lg={6} md={6}>
             <div className={classes.fullWidth} style={{ display: "flex" }}>
               <TextField
-                id="filled-basic"
+                id="outlined-basic"
                 label="Video Link"
                 name="link"
-                variant="filled"
+                variant="outlined"
                 style={{ width: "100%" }}
                 value={video.link}
                 onChange={(event) => handleChangeVideos(video.id, event)}
@@ -552,7 +551,7 @@ function AddCourse() {
                 disabled={videos.length === 1}
                 onClick={handleRemoveVideos}
               >
-                <RemoveIcon />
+                <DeleteOutlineIcon />
               </Button>
             </div>
           </Grid>
